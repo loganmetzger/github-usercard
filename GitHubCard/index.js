@@ -14,7 +14,7 @@ axios.get(loganData)
   cards.appendChild(cardMaker(response))
 })
 .catch( () => {
-  console.log('fuck')
+  console.log('crap')
 });
 
 
@@ -42,7 +42,18 @@ axios.get(loganData)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(item => {
+  let userData = `https://api.github.com/users/${item}`
+  axios.get(userData)
+  .then( (response) => {
+    cards.appendChild(cardMaker(response))
+  })
+  .catch( () => {
+    console.log('crap')
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -67,7 +78,7 @@ const followersArray = [];
 
 
 
-cardMaker(loganData);
+// cardMaker(loganData);
 
 function cardMaker (user) {
   // instantiating elements
@@ -115,6 +126,8 @@ function cardMaker (user) {
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
+
+  console.log(followers)
 
   // GOTTA RETURN IT
   return card
