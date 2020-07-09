@@ -67,7 +67,7 @@ const followersArray = [];
 
 
 
-cardMaker({loganData});
+cardMaker(loganData);
 
 function cardMaker (user) {
   // instantiating elements
