@@ -5,8 +5,18 @@
 */
 
 import axios from 'axios'
-
 const cards = document.querySelector('.cards')
+const loganData = 'https://api.github.com/users/loganmetzger'
+
+
+axios.get(loganData)
+.then( (response) => {
+  cards.appendChild(cardMaker(response))
+})
+.catch( () => {
+  console.log('fuck')
+});
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -54,11 +64,12 @@ const followersArray = [];
     </div>
 */
 
-const loganData = 'https://api.github.com/users/loganmetzger'
 
-cardMaker(loganData);
 
-function cardMaker ({data}) {
+
+cardMaker({loganData});
+
+function cardMaker (user) {
   // instantiating elements
 
   // main div - all things are attached to this
@@ -81,16 +92,16 @@ function cardMaker ({data}) {
   name.classList.add('name')
   username.classList.add('username')
 
-  // Adding content from data
-  // cardImg.src = data.avatar_url
-  name.textContent = data.name
-  username.textContent = data.login
-  location.textContent = data.location
+  // Adding content from user
+  cardImg.src = user.data.avatar_url
+  name.textContent = user.data.name
+  username.textContent = user.data.login
+  location.textContent = user.data.location
   profile.textContent = 'Profile: '
-  profileLink.textContent = data.html_url
-  followers.textContent = `Followers: ${data.followers}`
-  following.textContent = `Following: ${data.following}`
-  bio.textContent = `Bio: ${data.bio}`
+  profileLink.textContent = user.data.html_url
+  followers.textContent = `Followers: ${user.data.followers}`
+  following.textContent = `Following: ${user.data.following}`
+  bio.textContent = `Bio: ${user.data.bio}`
 
   // Appending Children
   cards.appendChild(card)
@@ -110,14 +121,7 @@ function cardMaker ({data}) {
 }
 
 
-axios.get(loganData)
-console.log(loganData)
-.then( () => {
-  console.log('New Orleans, can you read me?')
-})
-.catch( () => {
-  console.log('Sorry New Orleans, all dark.')
-});
+
 
 /*
   List of LS Instructors Github username's:
